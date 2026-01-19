@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 
 export default function AddToCart({book}) {
     const {carts} = useSelector((state) => state.cartSlice);
+    const {user} = useSelector((state) => state.userSlice);
     const isExist = carts.find((cart) =>  cart.id === book._id);
     const [qty, setQty] = useState(isExist?.qty || 1);
     const dispatch = useDispatch();
@@ -38,6 +39,7 @@ export default function AddToCart({book}) {
             </div>
 
             <Button 
+            disabled={user.role === 'admin' || !user}
             onClick={handleCart}
             className={'bg-green-700'} >Add To Cart</Button>
            
