@@ -1,0 +1,28 @@
+
+import { useNavigate } from "react-router";
+import { base } from "../../app/mainApi";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../components/ui/card";
+export default function BookCard({book}){
+  const nav  = useNavigate();
+  return (
+
+    <Card
+    onClick={() => nav(`/books/${book._id}`)}
+    className='pt-0 hover:scale-[103%] ease-in duration-75 delay-100 transition cursor-pointer'>
+      <CardContent className='px-0'>
+        <img
+          src={`${base}/${book.image}`}
+          alt='Banner'
+          className='aspect-video h-60 rounded-t-xl object-cover'
+        />
+      </CardContent>
+      <CardHeader>
+        <CardTitle>{book.title}</CardTitle>
+        <CardTitle>Rs. {book.price}</CardTitle>
+        <CardDescription className='line-clamp-4'>{book.description}</CardDescription>
+      </CardHeader>
+      
+    </Card>
+  )
+}
+
