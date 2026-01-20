@@ -28,18 +28,20 @@ export default function AddToCart({book}) {
     }
     return (
         <div className="space-y-5" >
-            <div className="flex gap-4 ">
-            <Button disabled={qty == 1} onClick={decrement}  >
+            <div className="flex gap-4  ">
+            <Button disabled={qty == 1} onClick={decrement} >
                 <MinusIcon/>
             </Button>
+
             <h3>{qty}</h3>
+
              <Button disabled={qty === book.stock} onClick={increment}>
                 <PlusIcon/>
             </Button>
             </div>
 
             <Button 
-            disabled={user.role === 'admin' || !user}
+            disabled={user?.role === 'admin' || !user}
             onClick={handleCart}
             className={'bg-green-700'} >Add To Cart</Button>
            

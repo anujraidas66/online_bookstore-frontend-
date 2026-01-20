@@ -13,7 +13,7 @@ export default function BookCard({book}){
         <img
           src={`${base}/${book.image}`}
           alt='Banner'
-          className='aspect-video h-60 rounded-t-xl object-cover'
+          className='aspect-video h-60 rounded-t-xl'
         />
       </CardContent>
       <CardHeader>

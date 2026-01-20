@@ -17,7 +17,7 @@ export default function AdminPanel() {
     
     <div>
 
-      <div className="mb-4" >
+      <div className="mb-4 mt-5" >
       <Button
       onClick={() => nav('/book-add')}
       className={'bg-green-700'}>Add New Book</Button>
