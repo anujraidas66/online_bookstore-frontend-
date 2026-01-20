@@ -1,6 +1,6 @@
 import { useGetBooksQuery } from "../books/bookApi";
-import { Avatar, AvatarImage } from '@/components/ui/avatar'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { base } from "../../app/mainApi";
 import { Button } from "../../components/ui/button";
 import { EditIcon } from "lucide-react";
@@ -8,62 +8,136 @@ import { useNavigate } from "react-router";
 import { RemoveBook } from "./RemoveBook";
 
 export default function AdminPanel() {
-  const nav= useNavigate();
-    const {isLoading,error,data} = useGetBooksQuery();
-    if(isLoading) return <div>Loading...</div>;
-    if(error) return <h1 className = "text-pink-950" >{error}</h1>
-    
-    return (
-    
-    <div>
+  const nav = useNavigate();
+  const { isLoading, error, data } = useGetBooksQuery();
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <h1 className="text-pink-950">{error}</h1>;
 
-      <div className="mb-4 mt-5" >
-      <Button
-      onClick={() => nav('/book-add')}
-      className={'bg-green-700'}>Add New Book</Button>
+  return (
+    <div className="p-4">
+
+      {/* Add Book Button */}
+      <div className="mb-4 mt-5">
+        <Button
+          onClick={() => nav('/book-add')}
+          className="bg-green-700"
+        >
+          Add New Book
+        </Button>
       </div>
 
-    <div className='w-full'>
-      <div className='[&>div]:rounded-sm [&>div]:border'>
-        <Table>
-          <TableHeader>
-            <TableRow className='hover:bg-transparent'>
-              <TableHead>Book Title</TableHead>
-              <TableHead>Id</TableHead>
-              <TableHead>CreatedAt</TableHead>
-              <TableHead>Update</TableHead>
-              <TableHead>Remove</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data.books.map(item => (
-              <TableRow key={item._id}>
-                <TableCell>
-                  <div className='flex items-center gap-3'>
-                    <Avatar>
-                      <AvatarImage src={`${base}/${item.image}`} alt={item.image} />
-                    </Avatar>
-                    <div className='font-medium'>{item.title}</div>
-                  </div>
-                </TableCell>
-                <TableCell>{item._id}</TableCell>
-                <TableCell>{item.createdAt}</TableCell>
-                <TableCell>
-                    <Button onClick={() => nav(`/book-edit/${item._id}`)} >
-                        <EditIcon/>
-                    </Button>
-                </TableCell>
-                <TableCell>
-
-                  <RemoveBook id={item._id} />
-                    
-                </TableCell>
+      {/* Responsive Table */}
+      <div className="w-full overflow-x-auto">
+        <div className="[&>div]:rounded-sm [&>div]:border min-w-[600px]">
+          <Table className="w-full">
+            <TableHeader>
+              <TableRow className="hover:bg-transparent">
+                <TableHead className="text-xs sm:text-sm md:text-base">Book Title</TableHead>
+                <TableHead className="text-xs sm:text-sm md:text-base">Id</TableHead>
+                <TableHead className="text-xs sm:text-sm md:text-base">CreatedAt</TableHead>
+                <TableHead className="text-xs sm:text-sm md:text-base">Update</TableHead>
+                <TableHead className="text-xs sm:text-sm md:text-base">Remove</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {data.books.map(item => (
+                <TableRow key={item._id}>
+                  <TableCell className="truncate max-w-[120px] sm:max-w-[150px] md:max-w-[200px]">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <Avatar>
+                        <AvatarImage src={`${base}/${item.image}`} alt={item.image} />
+                      </Avatar>
+                      <div className="font-medium text-xs sm:text-sm md:text-base truncate max-w-[70px] sm:max-w-[100px] md:max-w-[150px]">{item.title}</div>
+                    </div>
+                  </TableCell>
+                  <TableCell className="truncate text-xs sm:text-sm md:text-base max-w-[100px]">{item._id}</TableCell>
+                  <TableCell className="truncate text-xs sm:text-sm md:text-base max-w-[120px]">{item.createdAt}</TableCell>
+                  <TableCell>
+                    <Button className="p-1 sm:p-2" onClick={() => nav(`/book-edit/${item._id}`)}>
+                      <EditIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <RemoveBook id={item._id} />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </div>
-        </div>
-    )
+  );
 }
+
+
+
+// import { useGetBooksQuery } from "../books/bookApi";
+// import { Avatar, AvatarImage } from '@/components/ui/avatar'
+// import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+// import { base } from "../../app/mainApi";
+// import { Button } from "../../components/ui/button";
+// import { EditIcon } from "lucide-react";
+// import { useNavigate } from "react-router";
+// import { RemoveBook } from "./RemoveBook";
+
+// export default function AdminPanel() {
+//   const nav= useNavigate();
+//     const {isLoading,error,data} = useGetBooksQuery();
+//     if(isLoading) return <div>Loading...</div>;
+//     if(error) return <h1 className = "text-pink-950" >{error}</h1>
+    
+//     return (
+    
+//     <div>
+
+//       <div className="mb-4 mt-5" >
+//       <Button
+//       onClick={() => nav('/book-add')}
+//       className={'bg-green-700'}>Add New Book</Button>
+//       </div>
+
+//     <div className='w-full'>
+//       <div className='[&>div]:rounded-sm [&>div]:border'>
+//         <Table>
+//           <TableHeader>
+//             <TableRow className='hover:bg-transparent'>
+//               <TableHead>Book Title</TableHead>
+//               <TableHead>Id</TableHead>
+//               <TableHead>CreatedAt</TableHead>
+//               <TableHead>Update</TableHead>
+//               <TableHead>Remove</TableHead>
+//             </TableRow>
+//           </TableHeader>
+//           <TableBody>
+//             {data.books.map(item => (
+//               <TableRow key={item._id}>
+//                 <TableCell>
+//                   <div className='flex items-center gap-3'>
+//                     <Avatar>
+//                       <AvatarImage src={`${base}/${item.image}`} alt={item.image} />
+//                     </Avatar>
+//                     <div className='font-medium'>{item.title}</div>
+//                   </div>
+//                 </TableCell>
+//                 <TableCell>{item._id}</TableCell>
+//                 <TableCell>{item.createdAt}</TableCell>
+//                 <TableCell>
+//                     <Button onClick={() => nav(`/book-edit/${item._id}`)} >
+//                         <EditIcon/>
+//                     </Button>
+//                 </TableCell>
+//                 <TableCell>
+
+//                   <RemoveBook id={item._id} />
+                    
+//                 </TableCell>
+//               </TableRow>
+//             ))}
+//           </TableBody>
+//         </Table>
+//       </div>
+//     </div>
+//         </div>
+//     )
+// }
