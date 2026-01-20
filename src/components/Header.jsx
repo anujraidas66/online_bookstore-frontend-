@@ -6,7 +6,8 @@ export default function Header() {
     const {user} = useSelector((state) => state.userSlice);
     
     return (
-        <div className="bg-gray-300 px-5 flex justify-between items-end py-2" >
+        <div className="relative py-5 z-50 " >
+        <div className="bg-gray-300 px-5 flex justify-between items-end py-2 fixed top-0 right-0 left-0 " >
         <h1 className="text-[30px] font-bold ">BookStore</h1>
 
         {user ? <DropDownProfile user={user} /> : <div className="space-x-5" >
@@ -17,6 +18,7 @@ export default function Header() {
             <Button >Sign Up</Button>
             </NavLink>
         </div> }
+        </div>
         </div>
     )
 }
