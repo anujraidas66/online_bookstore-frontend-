@@ -1,39 +1,15 @@
-// import { useGetBooksQuery } from "../books/bookApi";
-// import BookCard from "../books/BookCard";
-
-// export default function Home() {
-//     const { isLoading, error, data } = useGetBooksQuery();
-//     if (isLoading) return <div>Loading...</div>;
-//     if (error) return <h1 className="text-pink-950">{error}</h1>;
-
-//     return (
-//         <div className="py-8">
-//             <div className="grid gap-5
-//                             grid-cols-1      /* Mobile: 1 column */
-//                             sm:grid-cols-2   /* Small screens: 2 columns */
-//                             md:grid-cols-3   /* Medium screens: 3 columns */
-//                             lg:grid-cols-4   /* Large screens: 4 columns always */">
-//                 {data.books.map((book) => (
-//                     <BookCard key={book._id} book={book} />
-//                 ))}
-//             </div>
-//         </div>
-//     );
-// }
-
-
 import { useState } from "react";
 import { useGetBooksQuery } from "../books/bookApi";
 import BookCard from "../books/BookCard";
 
 export default function Home() {
   const { isLoading, error, data } = useGetBooksQuery();
-  const [currentIndex, setCurrentIndex] = useState(0); // track which image is shown
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <h1 className="text-pink-950">{error}</h1>;
+  if (isLoading) return <div className="text-center py-10">Loading...</div>;
+  if (error) return <h1 className="text-pink-950 text-center">{error}</h1>;
 
-  // Images for the clickable carousel
+  // Carousel images
   const carouselImages = [
     "https://images.unsplash.com/photo-1512820790803-83ca734da794",
     "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f",
@@ -42,46 +18,58 @@ export default function Home() {
   ];
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-12">
 
-      {/* ===== MAIN IMAGE ===== */}
-      <div className="w-full relative">
+      {/* ================= CAROUSEL ================= */}
+      <div className="relative w-full overflow-hidden rounded-xl">
         <img
           src={carouselImages[currentIndex]}
           alt={`Banner ${currentIndex + 1}`}
-          className="w-full h-72 md:h-96 object-cover rounded-xl"
+          className="w-full h-[75vh] md:h-[80vh] object-cover"
         />
 
-        {/* ===== THUMBNAILS ABOVE IMAGE ===== */}
-        <div className="absolute top-2 left-1/2 transform -translate-x-1/2 flex gap-2">
+        {/* Thumbnails */}
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 flex gap-3 bg-black/40 p-2 rounded-lg">
           {carouselImages.map((img, index) => (
             <img
               key={index}
               src={img}
               alt={`Thumbnail ${index + 1}`}
-              className={`w-16 h-16 object-cover rounded-lg border-2 cursor-pointer
-                ${currentIndex === index ? "border-amber-400" : "border-white/30"}`}
-              onClick={() => setCurrentIndex(index)} // click to change main image
+              onClick={() => setCurrentIndex(index)}
+              className={`
+                w-14 h-14 sm:w-16 sm:h-16
+                object-cover rounded-md cursor-pointer
+                border-2 transition
+                ${
+                  currentIndex === index
+                    ? "border-amber-400 scale-105"
+                    : "border-white/40 hover:border-white"
+                }
+              `}
             />
           ))}
         </div>
       </div>
 
-      {/* ===== BOOK GRID ===== */}
+      {/* ================= BOOK GRID ================= */}
       <div
-        className="grid gap-5
-                   grid-cols-1
-                   sm:grid-cols-2
-                   md:grid-cols-3
-                   lg:grid-cols-4"
+        className="
+          grid gap-6
+          grid-cols-1
+          sm:grid-cols-2
+          md:grid-cols-3
+          lg:grid-cols-4
+        "
       >
         {data.books.map((book) => (
           <BookCard key={book._id} book={book} />
         ))}
       </div>
+
     </div>
   );
 }
+
 
 
 
