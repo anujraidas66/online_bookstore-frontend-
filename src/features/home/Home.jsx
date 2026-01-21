@@ -7,7 +7,8 @@ export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   if (isLoading) return <div className="text-center py-10">Loading...</div>;
-  if (error) return <h1 className="text-pink-950 text-center">{error}</h1>;
+  if (error) return <h1 className="text-pink-950 text-center">{error.data?.message}</h1>;
+  console.log(data);
 
   // Carousel images
   const carouselImages = [
@@ -59,8 +60,7 @@ export default function Home() {
           sm:grid-cols-2
           md:grid-cols-3
           lg:grid-cols-4
-        "
-      >
+        ">
         {data.books.map((book) => (
           <BookCard key={book._id} book={book} />
         ))}
