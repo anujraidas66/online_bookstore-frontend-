@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <div className="space-y-12">
 
-      {/* ================= CAROUSEL ================= */}
+      
       <div className="relative w-full overflow-hidden rounded-xl">
         <img
           src={carouselImages[currentIndex]}
@@ -52,7 +52,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ================= BOOK GRID ================= */}
+   
       <div
         className="
           grid gap-6
