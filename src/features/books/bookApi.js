@@ -19,30 +19,17 @@ export const bookApi = mainApi.injectEndpoints({
         providesTags: ['Book']
     }),
 
-    createBook: builder.mutation({
-  query: (data) => ({
-    url: "/books",
-    method: "POST",
-    body: data.body,
-    headers: {
-      Authorization: `Bearer ${data.token}`,
-    },
-  }),
-  invalidatesTags: ["Book"],
-}),
-
-
-    //     createBook:builder.mutation({
-    //         query:(data) => ({
-    //         url:'/books',
-    //         method: 'POST',
-    //         headers: {
-    //             Authorization: data.token
-    //         },
-    //         body:data.body
-    //     }),
-    //     invalidatesTags: ['Book']
-    // }),
+        createBook:builder.mutation({
+            query:(data) => ({
+            url:'/books',
+            method: 'POST',
+            headers: {
+                Authorization: data.token
+            },
+            body:data.body
+        }),
+        invalidatesTags: ['Book']
+    }),
 
        updateBook: builder.mutation({
             query: (data) => ({
